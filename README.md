@@ -1,6 +1,6 @@
-##MINI-CRM
+## MINI-CRM
 
-#Functionality:-
+# Functionality:-
 
 - [❎] Use Laravel make:auth as default Bootstrap-based design theme, but remove ability to register.
 - [❎] Companies DB table consists of these fields: Name (required), email, logo (minimum 100×100), website.\n
