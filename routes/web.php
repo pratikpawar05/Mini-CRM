@@ -17,11 +17,9 @@ use phpDocumentor\Reflection\Types\Resource_;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
-// Route::get('/login', function () {
-//     return view('auth.login');
-// });
+
 Auth::routes();
 Route::Resource('/company','CompanyController');
 Route::get('/home', 'HomeController@index')->name('home');
