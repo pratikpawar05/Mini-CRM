@@ -5,6 +5,15 @@
 </div>
 @endsection
 @section('content')
+@if(request()->session()->has('registered'))
+        <div class="form-group">
+            <div class="alert alert-danger">
+                <ul class="list-group">
+                    {{ session('registered') }}
+                </ul>
+            </div>
+        </div>
+@endif
 <div class="card card-default">
     <div class="card-header">
         Categories
@@ -12,7 +21,7 @@
     <div class="card-body">
         <table class="table">
             <thead>
-                <th>Name:</th>
+                <th>Employee Name:</th>
                 <th>View:</th>
                 <th>Update:</th>
                 <th>Delete:</th>
@@ -22,7 +31,7 @@
         
                 @foreach($employee_data as $data)
                 <tr>
-                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->first_name.$data->last_name }}</td>
                     <td><a href="{{ route('employee.show',$data->id) }}" class="btn btn-info">View</a></td>
                     <td><a href="{{ route('employee.edit',$data->id) }}" class="btn btn-info">Update</a></td>
                     <td>

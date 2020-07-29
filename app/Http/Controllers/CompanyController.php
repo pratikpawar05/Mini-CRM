@@ -43,6 +43,7 @@ class CompanyController extends Controller
         $request->validate([
             'name'=>'required|max:255',
             'email'=>'nullable|email:rfc,dns',
+            'image'=> 'sometimes|required|dimensions:max_width=100,max_height=100'
         ]);
         if (request()->hasFile('logo')) {
             $company = new Company();
@@ -51,7 +52,7 @@ class CompanyController extends Controller
             $company->logo = $request->file('logo')->store('public/company');
             $company->website_url = $request->website_url;
             $company->save();
-            $request->session()->flash('posts', 'Succesfully Registered The Company');
+            $request->session()->flash('registered', 'Succesfully Registered The Company');
         } else {
             $company = new Company();
             $company->name = $request->name;
