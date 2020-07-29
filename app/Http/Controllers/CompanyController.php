@@ -15,6 +15,9 @@ class CompanyController extends Controller
     public function index()
     {
         //
+        return view('company.index',[
+            'company_data'=>Company::all(),
+        ]);
     }
 
     /**
@@ -25,6 +28,7 @@ class CompanyController extends Controller
     public function create()
     {
         //
+        return view('company.create');
     }
 
     /**
@@ -36,6 +40,28 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name'=>'required|max:255',
+            'email'=>'nullable|email:rfc,dns',
+        ]);
+        if (request()->hasFile('logo')) {
+            $company = new Company();
+            $company->name = $request->name;
+            $company->email = $request->email;
+            $company->logo = $request->file('logo')->store('public/company');
+            $company->website_url = $request->website_url;
+            $company->save();
+            $request->session()->flash('posts', 'Succesfully Registered The Company');
+        } else {
+            $company = new Company();
+            $company->name = $request->name;
+            $company->email = $request->email;
+            $company->logo = 'company/noimage.png';
+            $company->website_url = $request->website_url;
+            $company->save();
+            $request->session()->flash('registered', 'Succesfully Registered The Company');
+        }
+        return redirect(route('company.index'));
     }
 
     /**
