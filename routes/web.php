@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Route::get('/login', function () {
+//     return view('auth.login');
+// });
 Auth::routes();
-
+Route::Resource('/company','CompanyController');
 Route::get('/home', 'HomeController@index')->name('home');
