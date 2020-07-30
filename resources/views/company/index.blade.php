@@ -6,43 +6,62 @@
 @endsection
 @section('content')
 @if(request()->session()->has('registered'))
-        <div class="form-group">
-            <div class="alert alert-danger">
-                <ul class="list-group">
-                    {{ session('registered') }}
-                </ul>
-            </div>
-        </div>
+<div class="form-group">
+    <div class="alert alert-danger">
+        <ul class="list-group">
+            {{ session('registered') }}
+        </ul>
+    </div>
+</div>
 @endif
 <div class="card card-default">
-    <div class="card-header">
-        Categories
+    <div class="card-header bg-info">
+        Company Record
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table" id="companyData" width="100%">
             <thead>
                 <th>Company Name:</th>
-                <th>View:</th>
-                <th>Update:</th>
-                <th>Delete:</th>
+                <th>Email:</th>
+                <th>Website URL:</th>
+                <th>Action:</th>
             </thead>
             <tbody>
-                @foreach($company_data as $data)
-                <tr>
-                    <td>{{ $data->name }}</td>
-                    <td><a href="{{ route('company.show',$data->id) }}" class="btn btn-info">View</a></td>
-                    <td><a href="{{ route('company.edit',$data->id) }}" class="btn btn-info">Update</a></td>
-                    <td>
-                        <form action="{{ route('company.destroy',$data->id) }}" method="post">
-                            <input class="btn btn-info" type="submit" value="Delete" />
-                            @method('delete')
-                            @csrf
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+
             </tbody>
         </table>
     </div>
 </div>
+@endsection
+@section('scripts')
+
+<script>
+    $(document).ready(function() {
+        $.noConflict();
+        $('#companyData').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('company.index') }}",
+            "columns": [{
+                    data: "name",
+                    name: "name"
+                },
+                {
+                    data: "email",
+                    name: "email"
+                },
+                {
+                    data: "website_url",
+                    name: "website_url"
+                },
+                {
+                    data: "action",
+                    name: "action",
+                    orderable: false
+                }
+            ]
+        });
+    });
+</script>
+
 @endsection

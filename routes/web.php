@@ -19,8 +19,19 @@ use phpDocumentor\Reflection\Types\Resource_;
 Route::get('/', function () {
     return redirect('/login');
 });
-
 Auth::routes();
-Route::Resource('/company','CompanyController');
-Route::Resource('/employee','EmployeeController');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    //Company Routes
+    Route::Resource('/company','CompanyController');
+    // Route::get('/company/getAllData','CompanyController@getAllData');
+    //Employee Routes
+    Route::Resource('/employee','EmployeeController',['only' => [
+        'index','store', 'create'
+    ]]);
+    Route::get('/employee/getData/{id}','EmployeeController@getData');
+    Route::post('/employee/update/{id}','EmployeeController@update');
+    Route::post('/employee/delete/{id}','EmployeeController@delete');
+    
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+});

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
-
+use Mail;
+use DB;
+// use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\DataTables;
 class CompanyController extends Controller
 {
     /**
@@ -12,12 +15,22 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return view('company.index',[
-            'company_data'=>Company::all(),
-        ]);
+        if($request->ajax()){
+            // $query =DB::table('companies')->orderBy('id');
+            $data =Company::latest()->get();
+            return DataTables::of($data)
+            ->addColumn('action', function($data){
+                $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                return $button;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        return view('company.index');
     }
 
     /**
@@ -52,7 +65,6 @@ class CompanyController extends Controller
             $company->logo = $request->file('logo')->store('public/company');
             $company->website_url = $request->website_url;
             $company->save();
-            $request->session()->flash('registered', 'Succesfully Registered The Company');
         } else {
             $company = new Company();
             $company->name = $request->name;
@@ -60,8 +72,16 @@ class CompanyController extends Controller
             $company->logo = 'company/noimage.png';
             $company->website_url = $request->website_url;
             $company->save();
-            $request->session()->flash('registered', 'Succesfully Registered The Company');
         }
+        $request->session()->flash('registered', 'Succesfully Registered The Company');
+        $data=['name'=>$request->name];
+        Mail::send('emails.welcome', $data, function ($message) {
+            $message->from('pratikp@binated.in', 'Laravel');
+            $message->to('icanpratikpawar@gmail.com');
+            $message->cc('icanpratikpawar@gmail.com');
+            $message->subject('Testing Mail');
+        });
+        
         return redirect(route('company.index'));
     }
 
@@ -71,9 +91,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Request $request,$id)
     {
         //
+        return response()->json(Company::get($id));
+
     }
 
     /**
@@ -108,5 +130,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         //
+       
     }
 }
