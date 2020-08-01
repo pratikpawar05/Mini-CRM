@@ -87,6 +87,8 @@
         $('#companyData').DataTable({
             "processing": true,
             "serverSide": true,
+            "pageLength": 10,
+            "lengthMenu": [ 10],
             "ajax": "{{ route('company.index') }}",
             "columns": [{
                     data: "name",
