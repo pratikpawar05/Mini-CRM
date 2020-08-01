@@ -97,11 +97,17 @@ class EmployeeController extends Controller
      */
     public function update(Request $request,int $id)
     {
-        //        
+        //   
+        $request->validate([
+            'first_name'=>'required|max:255',
+            'last_name'=>'required|max:255',
+            'company'=>'required|not_in:0',
+            'email'=>'sometimes|required|email:rfc,dns',
+        ]);
         $emp=Employee::find($id);
         $emp->first_name=$request->first_name;
         $emp->last_name=$request->last_name;
-        $emp->company_id=$request->company_id;
+        $emp->company_id=$request->company;
         $emp->email=$request->email;
         $emp->phone=$request->phone;
         $emp->save();

@@ -14,9 +14,13 @@
     </div>
 </div>
 @endif
-<div id="app">
-
+<div class="form-group" class="ajax_errors">
+    <div class="alert alert-danger">
+        <ul class="list-group" id="errors">
+        </ul>
+    </div>
 </div>
+
 <div class="card card-default">
     <div class="card-header bg-success">
         Employee Record
@@ -35,59 +39,59 @@
             <tbody>
             </tbody>
         </table>
-    <!-- Update Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">View Employee</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group" readonly>
-                            <label for="fname" class="col-form-label">First Name:</label>
-                            <input type="text" class="form-control" id="fname">
-                        </div>
-                        <div class="form-group">
-                            <label for="lname" class="col-form-label">Last Name:</label>
-                            <input type="text" class="form-control" id="lname">
-                        </div>
-                        <div class="form-group">
-                            <label for="company_id" class="">Company:</label>
-                            <select name="company" id="company_id" class="form-control" required>
-                                <option>---Select The Company----</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-form-label">Email:</label>
-                            <input type="text" class="form-control" id="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" class="col-form-label">Phone:</label>
-                            <input type="text" class="form-control" id="phone">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="updateEmployeeData" data-dismiss="modal">Update</button>
+        <!-- Update Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">View Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateEmployee" enctype="multipart/form-data" class="form">
+                            <div class="form-group" readonly>
+                                <label for="fname" class="col-form-label">First Name:</label>
+                                <input type="text" class="form-control" id="fname" name="first_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lname" class="col-form-label">Last Name:</label>
+                                <input type="text" class="form-control" id="lname" name="last_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="company_id" class="">Company:</label>
+                                <select name="company" id="company_id" class="form-control" required>
+                                    <option>---Select The Company----</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-form-label">Phone:</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="updateEmployeeData" data-dismiss="modal">Update</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Update Modal Ends-->
+        <!-- Update Modal Ends-->
     </div>
 </div>
 @endsection
 @section('scripts')
 <script>
-// Server side rendering using datatables! 
+    // Server side rendering using datatables! 
     $(document).ready(function() {
         $.noConflict();
-
+        $('.alert-danger').hide();
         $('#employeeData').DataTable({
             "processing": true,
             "serverSide": true,
@@ -123,11 +127,11 @@
         });
     });
 
-// Set the modal with Employee Data
-    var self_id,tr,fname,lname,curr_comp,email,phone,company_id;
+    // Set the modal with Employee Data
+    var self_id, tr, fname, lname, curr_comp, email, phone, company_id;
     $(document).on('click', 'button[name="edit"]', function(e) {
-        var companies=@json($company_data);
-        self_id=$(this).attr('id');
+        var companies = @json($company_data);
+        self_id = $(this).attr('id');
         tr = $(this).parent().parent();
         fname = tr.find('td:eq(0)').text();
         lname = tr.find('td:eq(1)').text();
@@ -151,49 +155,53 @@
     //Update the employee data
     $('#updateEmployeeData').on('click', function(e) {
         console.log(self_id)
-    e.preventDefault();
-    $.ajax({
-        url: `/employee/update/${self_id}`,
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            first_name: $('#myModal #fname').val(),
-            last_name: $('#myModal #lname').val(),
-            company_id: $("#myModal #company_id option:selected").val(),
-            email: $('#myModal #email').val(),
-            phone: $('#myModal #phone').val(),
-        },
-        success: function(obj) {
-            location.reload()
-           
-        },
-        error: function(error) {
-            console.log(JSON.stringify(error));
-        }
+        e.preventDefault();
+        var formData = new FormData($('#updateEmployee')[0]);
+        // console.log(formData.get('company'));
+        $.ajax({
+            url: `/employee/update/${self_id}`,
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: formData,
+            success: function(obj) {
+                location.reload()
+                alert('Employee Data Updated Succesfully!')
+            },
+            error: function(error) {
+                $('.alert-danger .list-group').empty()
+                $('.alert-danger').show();
+                temp_err = error['responseJSON']['errors']
+                for (const err in temp_err) {
+                    $('#errors').append('<li class="list-group-item">' + temp_err[err][0] + '</li>')
+                    console.log(temp_err[err][0]);
+                }
+            }
         });
     });
 
 
     //Delete Employee Data
     $(document).on('click', 'button[name="delete"]', function(e) {
-        id=$(this).attr('id');
+        id = $(this).attr('id');
         $.ajax({
-        url: `/employee/delete/${id}`,
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success:function(e){
-            alert('Employee Deleted Succesfully!')
-            location.reload();
-        },
-        error: function(error) {
-            console.log(JSON.stringify(error));
-        }
+            url: `/employee/delete/${id}`,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(e) {
+                alert('Employee Deleted Succesfully!')
+                location.reload();
+            },
+            error: function(error) {
+                console.log(JSON.stringify(error));
+            }
         });
     });
-    
 </script>
 @endsection

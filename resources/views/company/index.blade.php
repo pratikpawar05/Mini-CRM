@@ -15,7 +15,7 @@
 </div>
 @endif
 <div class="form-group">
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" class="ajax_errors">
         <ul class="list-group" id="errors">
         </ul>
     </div>
