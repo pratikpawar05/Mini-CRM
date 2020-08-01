@@ -91,6 +91,8 @@
         $('#employeeData').DataTable({
             "processing": true,
             "serverSide": true,
+            "pageLength": 10,
+            "lengthMenu": [10],
             "ajax": "{{ route('employee.index') }}",
             "columns": [{
                     data: "first_name",
