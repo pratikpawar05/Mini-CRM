@@ -84,6 +84,7 @@
 @endsection
 @section('scripts')
 <script>
+// Server side rendering using datatables! 
     $(document).ready(function() {
         $.noConflict();
 
@@ -119,6 +120,8 @@
             ]
         });
     });
+
+// Set the modal with Employee Data
     var self_id,tr,fname,lname,curr_comp,email,phone,company_id;
     $(document).on('click', 'button[name="edit"]', function(e) {
         var companies=@json($company_data);
@@ -169,6 +172,8 @@
         }
         });
     });
+
+
     //Delete Employee Data
     $(document).on('click', 'button[name="delete"]', function(e) {
         id=$(this).attr('id');

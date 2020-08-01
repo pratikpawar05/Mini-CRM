@@ -21,9 +21,14 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
+    
     //Company Routes
-    Route::Resource('/company','CompanyController');
-    // Route::get('/company/getAllData','CompanyController@getAllData');
+    Route::Resource('/company','CompanyController',['only' => [
+        'index','store', 'create'
+    ]]);
+    Route::post('/company/delete/{id}','CompanyController@delete');
+    Route::post('/company/update/{id}','CompanyController@update');
+
     //Employee Routes
     Route::Resource('/employee','EmployeeController',['only' => [
         'index','store', 'create'
@@ -31,7 +36,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/employee/getData/{id}','EmployeeController@getData');
     Route::post('/employee/update/{id}','EmployeeController@update');
     Route::post('/employee/delete/{id}','EmployeeController@delete');
-    
     Route::get('/home', 'HomeController@index')->name('home');
     
 });
