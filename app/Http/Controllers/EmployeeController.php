@@ -62,7 +62,8 @@ class EmployeeController extends Controller
             'first_name'=>'required|max:255',
             'last_name'=>'required|max:255',
             'company'=>'required|not_in:0',
-            'email'=>'sometimes|required|email:rfc,dns',
+            'email'=>'nullable|sometimes|email:rfc,dns',
+            'phone' => 'nullable|sometimes|regex:/[0-9]{10}/'
         ]);
         $emp =  Employee::create([
             'first_name'=>$request->first_name,
@@ -102,7 +103,8 @@ class EmployeeController extends Controller
             'first_name'=>'required|max:255',
             'last_name'=>'required|max:255',
             'company'=>'required|not_in:0',
-            'email'=>'sometimes|required|email:rfc,dns',
+            'email'=>'sometimes|email:rfc,dns',
+            'phone' => 'sometimes|regex:/(01)[0-9]{9}/'
         ]);
         $emp=Employee::find($id);
         $emp->first_name=$request->first_name;

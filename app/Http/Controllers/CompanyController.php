@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Mail\Mailable;
 // use Yajra\DataTables\Facades\DataTables;
 use Yajra\DataTables\DataTables;
+use App\Mail\OnBoardMail;
 class CompanyController extends Controller
 {
     /**
@@ -63,8 +64,8 @@ class CompanyController extends Controller
       
             $request->validate([
             'name'=>'required|max:255',
-            'email'=>'nullable|email:rfc,dns',
-            'logo'=> 'sometimes|required|dimensions:max_width=100,max_height=100'
+            'email'=>'nullable|sometimes|email:rfc,dns',
+            // 'logo'=> 'nullable|sometimes|dimensions:max_width=100,max_height=100'
         ]);
             if (request()->hasFile('logo')) {
                 $company = new Company();
@@ -77,18 +78,18 @@ class CompanyController extends Controller
                 $company = new Company();
                 $company->name = $request->name;
                 $company->email = $request->email;
-                $company->logo = 'company/noimage.png';
+                $company->logo = 'company/noimagefound.png';
                 $company->website_url = $request->website_url;
                 $company->save();
             }
             $request->session()->flash('registered', 'Succesfully Registered The Company');
             $data=['name'=>$request->name];
-            Mail::send('emails.welcome', $data, function ($message) {
-                $message->from('pratikp@binated.in', 'Laravel');
-                $message->to('icanpratikpawar@gmail.com');
-                $message->cc('icanpratikpawar@gmail.com');
-                $message->subject('Testing Mail');
-            });
+            // Mail::send('emails.welcome', $data, function ($message) {
+            //     $message->from('icanpratikpawar@gmail.com','Laravel');
+            //     $message->to('anonymouscoder05@gmail.com');
+            //     $message->cc('icanpratikpawar@gmail.com');
+            //     $message->subject('Testing Mail');
+            // });
         return redirect(route('company.index'));
     }
 
@@ -127,7 +128,7 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name'=>'required|max:255',
-            'email'=>'nullable|email:rfc,dns',
+            'email'=>'nullable|sometimes|email:rfc,dns',
             // 'logo'=> 'sometimes|required|dimensions:max_width=100,max_height=100'
         ]);
 

@@ -7,7 +7,7 @@
 @section('content')
 @if(request()->session()->has('registered'))
 <div class="form-group">
-    <div class="alert alert-danger">
+    <div class="alert alert-success">
         <ul class="list-group">
             {{ session('registered') }}
         </ul>

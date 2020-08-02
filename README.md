@@ -1,5 +1,14 @@
 ## MINI-CRM
 
+# How to use this app:-
+- Clone the repository with git clone
+- Copy the .env.example file content into .env(create new or rename .env.example).
+- Run composer install
+- Create a database for the same & run migrations.
+- Run the UserSeeder to generate a login account for testing the application <h3>(php artisan db:seed -class="UserSeeder")</h3>.
+- Also to generate fake company or employee data use EmployeeSeeder or CompanySeeder.
+- Enjoy the application.
+
 # Functionality:-
 
 - [✅] Basic testing with phpunit.
@@ -16,4 +25,4 @@
 - [✅] Use Laravel’s pagination for showing Companies/Employees list, 10 entries per page.
 - [✅] Use Datatables.net library to show table – with server-side rendering.
 - [❎] Email notification: send email whenever new company is entered (use Mailgun or Mailtrap).
-- [❎] Update about how to use the application
+- [✅] Update about how to use the application
