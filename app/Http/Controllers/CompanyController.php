@@ -85,8 +85,7 @@ class CompanyController extends Controller
             $details = [
                 'company_name'=>$name,
             ];
-            \Mail::to($company->email)->send(new OnBoardMail($details));
-
+            \Mail::to($company->email)->queue(new OnBoardMail($details));
             // Mail::send('emails.welcome', $data, function ($message) {
             //     $message->from('icanpratikpawar@gmail.com','Laravel');
             //     $message->to('anonymouscoder05@gmail.com');

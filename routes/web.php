@@ -45,10 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
         $details = [
-            'title' => 'Title: Mail from organization',
-            'body' => 'Body: You have succesfully onboarded on our platform.'
+            'company_name'=>'MyName',
         ];
-        \Mail::to('anonymouscoder05@gmail.com')->send(new OnBoardMail($details));
+        \Mail::to('anonymouscoder05@gmail.com')->queue(new OnBoardMail($details));
         print_r("Email has been sent!");
     });
 });

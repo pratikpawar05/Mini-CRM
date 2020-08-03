@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OnBoardMail extends Mailable
+class OnBoardMail extends Mailable implements ShouldQueue
 {
     public $details;
     use Queueable, SerializesModels;
