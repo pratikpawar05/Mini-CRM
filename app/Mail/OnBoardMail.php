@@ -9,15 +9,13 @@ use Illuminate\Queue\SerializesModels;
 
 class OnBoardMail extends Mailable
 {
-    var $detail;
+    public $details;
     use Queueable, SerializesModels;
     
     public function __construct($details)
     {
         //
-        $detail=$details;
-        // print_r(gettype($detail));
-
+        $this->details=$details;
     }
 
     /**

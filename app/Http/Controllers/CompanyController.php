@@ -6,8 +6,6 @@ use App\Company;
 use Illuminate\Http\Request;
 use Mail;
 use DB;
-use Illuminate\Mail\Mailable;
-// use Yajra\DataTables\Facades\DataTables;
 use Yajra\DataTables\DataTables;
 use App\Mail\OnBoardMail;
 class CompanyController extends Controller
@@ -83,7 +81,12 @@ class CompanyController extends Controller
                 $company->save();
             }
             $request->session()->flash('registered', 'Succesfully Registered The Company');
-            $data=['name'=>$request->name];
+            $name=$request->name;
+            $details = [
+                'company_name'=>$name,
+            ];
+            \Mail::to($company->email)->send(new OnBoardMail($details));
+
             // Mail::send('emails.welcome', $data, function ($message) {
             //     $message->from('icanpratikpawar@gmail.com','Laravel');
             //     $message->to('anonymouscoder05@gmail.com');

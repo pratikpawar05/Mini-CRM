@@ -2,12 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Real Programmer</title>
+    <title>Testing</title>
 </head>
 <body>
-    <h1>{{ $detail['title'] }}</h1>
-    <p>{{ $detail['body'] }}</p>
-    <h1>Hi,Pratik</h1>
+    Hi,<h5>{{ $details['company_name'] }}</h5>
     <p>You have succesfully onboarded on our platform.</p>
     <p>Hope you have great journey ahead with us!</p>
 </body>

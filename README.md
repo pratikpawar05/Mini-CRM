@@ -24,5 +24,5 @@
 - [✅] Use Laravel’s validation function, using Request classes.
 - [✅] Use Laravel’s pagination for showing Companies/Employees list, 10 entries per page.
 - [✅] Use Datatables.net library to show table – with server-side rendering.
-- [❎] Email notification: send email whenever new company is entered (use Mailgun or Mailtrap).
+- [✅] Email notification: send email whenever new company is entered (use Mailgun or Mailtrap).
 - [✅] Update about how to use the application

@@ -4,7 +4,11 @@ use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use phpDocumentor\Reflection\Types\Resource_;
+use App\Company;
+use App\Employee;
 use App\Mail\OnBoardMail;
+use PhpParser\Node\Expr\Empty_;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,10 +45,10 @@ Route::group(['middleware' => ['auth']], function () {
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
         $details = [
-            'title' => 'Title: Mail from Real Programmer',
-            'body' => 'Body: This is for testing email using smtp'
+            'title' => 'Title: Mail from organization',
+            'body' => 'Body: You have succesfully onboarded on our platform.'
         ];
         \Mail::to('anonymouscoder05@gmail.com')->send(new OnBoardMail($details));
-        // print_r("Email has been sent!");
+        print_r("Email has been sent!");
     });
 });
