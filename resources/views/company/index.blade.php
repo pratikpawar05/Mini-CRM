@@ -62,7 +62,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="logo" class="col-form-label">logo:</label>
-                                <input type="file" class="form-control" id="logo" name="logo">
+                                <input type="file" class="form-control" id="logo" name="logo"  accept="image/*">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -17,8 +17,6 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        
         if($request->ajax()){
             // $query =DB::table('companies')->orderBy('id');
             $data =Company::latest()->get();
@@ -29,13 +27,12 @@ class CompanyController extends Controller
                 return $button;
             })
             ->addColumn('comp_logo', function($data){
-                $img='<img  width="100px" src="storage/'.$data->logo.'"</img>';
+                $img='<img  width="100px" src="'.$data->logo.'"</img>';
                 return $img;
             })
             ->rawColumns(['action','comp_logo'])
             ->make(true);
         }
-        
         return view('company.index');
     }
 
@@ -63,13 +60,13 @@ class CompanyController extends Controller
             $request->validate([
             'name'=>'required|max:255',
             'email'=>'nullable|sometimes|email:rfc,dns',
-            // 'logo'=> 'nullable|sometimes|dimensions:max_width=100,max_height=100'
+            // 'logo'=> 'nullable|sometimes|image|mimes:jpeg,png,jpg|max:2048|dimensions:max_width=100,max_height=100'
         ]);
             if (request()->hasFile('logo')) {
                 $company = new Company();
                 $company->name = $request->name;
                 $company->email = $request->email;
-                $company->logo = explode('public/',$request->file('logo')->store('public/company'))[1];
+                $company->logo = 'storage/'.explode('public/',$request->file('logo')->store('public/company'))[1];
                 $company->website_url = $request->website_url;
                 $company->save();
             } else {
@@ -131,7 +128,7 @@ class CompanyController extends Controller
         $request->validate([
             'name'=>'required|max:255',
             'email'=>'nullable|sometimes|email:rfc,dns',
-            // 'logo'=> 'sometimes|required|dimensions:max_width=100,max_height=100'
+            // 'logo'=> 'nullable|sometimes|image|mimes:jpeg,png,jpg|max:2048|dimensions:max_width=100,max_height=100',
         ]);
 
         $company=Company::find($id); 

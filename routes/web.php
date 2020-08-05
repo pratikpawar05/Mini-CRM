@@ -25,7 +25,15 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
+    // Profile Routes
+    // Route::Resource('/profile','ProfileController',['only' => [
+    //     'create'
+    // ]]);
     
+    Route::get('/profile/index/{id}','ProfileController@index')->name('profile.index');
+    Route::post('/profile/update/{id}','ProfileController@update')->name('profile.update');
+    Route::post('/profile/store/{id}','ProfileController@store')->name('profile.store');
+
     //Company Routes
     Route::Resource('/company','CompanyController',['only' => [
         'index','store', 'create'
@@ -37,9 +45,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::Resource('/employee','EmployeeController',['only' => [
         'index','store', 'create'
     ]]);
-    Route::get('/employee/getData/{id}','EmployeeController@getData');
     Route::post('/employee/update/{id}','EmployeeController@update');
     Route::post('/employee/delete/{id}','EmployeeController@delete');
+   
+    //Home Controller Routes
     Route::get('/home', 'HomeController@index')->name('home');
 
     //Testing mail functionality!!

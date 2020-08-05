@@ -25,4 +25,14 @@
 - [✅] Use Laravel’s pagination for showing Companies/Employees list, 10 entries per page.
 - [✅] Use Datatables.net library to show table – with server-side rendering.
 - [✅] Email notification: send email whenever new company is entered (use Mailgun or Mailtrap).
-- [✅] Update about how to use the application
+- [X] Use Core UI (free version)
+- [X] Dashboard should list
+- [X] a) Employees created yesterday
+- [X] b) Companies created yesterday
+- [X] c) Total Employees
+- [X] d) Total Companies
+- [X] Line Graph displaying employees and companies created over time (Day, Month & Year)
+- [X] Admin should be able to edit their profile (Picture, Name, change password)
+- [X] Send Notificatoin (In App) to Administrator everytime a company or employee is created
+- [X] Settings for Administrator to enable or disable notifications (Email or In App)
+- [X] Update about how to use the application

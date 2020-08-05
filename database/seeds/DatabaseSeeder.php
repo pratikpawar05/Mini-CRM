@@ -1,5 +1,6 @@
 <?php
 
+use App\Company;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -12,7 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //To insert the email & password!
-        $this->call(UserSeeder::class);
+        //To insert the administrator,employees & companies
+        $this->call([
+            UserSeeder::class,
+            CompanySeeder::class,
+            EmployeeSeeder::class
+        ]);
     }
 }
