@@ -77,12 +77,14 @@
     window.onload = function() {
         var options = {
             series: [{
-                    name: "Companies",
-                    data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+                    name: "Companies Onboarded",
+                    data: [@foreach($data as $key=>$val) 
+                            {{$val["count_company"]}},
+                            @endforeach]
                 },
                 {
-                    name: "Employees",
-                    data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
+                    name: "Employees Onboarded",
+                    data: [@foreach($data as $key=>$val) {{$val["count_employee"]}}, @endforeach]
                 }
             ],
             chart: {
@@ -101,7 +103,7 @@
                 dashArray: [0, 8, 5]
             },
             title: {
-                text: 'Page Statistics',
+                text: 'Data',
                 align: 'left'
             },
             legend: {
@@ -116,21 +118,21 @@
                 }
             },
             xaxis: {
-                categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-                    '10 Jan', '11 Jan', '12 Jan'
-                ],
+                categories: [@foreach($data as $key=>$val) 
+                            '{{$key}}',
+                            @endforeach],
             },
             tooltip: {
                 y: [{
                     title: {
                         formatter: function(val) {
-                            return val + " (mins)"
+                            return val+":";
                         }
                     }
                 }, {
                     title: {
                         formatter: function(val) {
-                            return val;
+                            return val+":";
                         }
                     }
                 }]
