@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\User;
 use App\Company;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class EmployeeController extends Controller
 {
@@ -74,6 +76,9 @@ class EmployeeController extends Controller
             'phone'=>$request->phone,
         ]);
         $request->session()->flash('registered', 'Succesfully Registered The Employee');
+        if(User::find(Auth::id(),['notification_status'])->notification_status=="1"){
+            $request->session()->flash('notify', $request->first_name.' '.$request->last_name);
+        }
         return redirect('/employee');
     }
 

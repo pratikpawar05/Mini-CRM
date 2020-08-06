@@ -14,6 +14,12 @@
     </div>
 </div>
 @endif
+@if(request()->session()->has('notify'))
+<div id='notify'>
+    <input type="hidden" value="{{ session('notify') }}">
+</div>
+@endif
+
 <div class="form-group" class="ajax_errors">
     <div class="alert alert-danger">
         <ul class="list-group" id="errors">
@@ -88,6 +94,14 @@
 @endsection
 @section('scripts')
 <script>
+     if($('#notify').is(':visible')){
+        x=$('#notify input').val()
+        var audio = new Audio("{{asset('storage/sound/swiftly.mp3')}}"); 
+        audio.play(); 
+        new Notification(`Succesfully registered the employee`,{
+            body:`Employee name: ${x}`,
+        });
+    }
     // Server side rendering using datatables! 
     $(document).ready(function() {
         $.noConflict();

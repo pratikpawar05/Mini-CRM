@@ -14,12 +14,20 @@
     </div>
 </div>
 @endif
+
+@if(request()->session()->has('notify'))
+<div id='notify'>
+    <input type="hidden" value="{{ session('notify') }}">
+</div>
+@endif
+
 <div class="form-group">
     <div class="alert alert-danger" class="ajax_errors">
         <ul class="list-group" id="errors">
         </ul>
     </div>
 </div>
+
 <div class="card card-default">
     <div class="card-header bg-success text-dark ">
         Company Record
@@ -62,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="logo" class="col-form-label">logo:</label>
-                                <input type="file" class="form-control" id="logo" name="logo"  accept="image/*">
+                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -83,6 +91,23 @@
 @section('scripts')
 
 <script>
+
+    // $('.alert-danger').bind('isVisible', function(){
+    //     alert('show me!')
+    // });
+    // $('.alert-danger').show('slow',function(){
+    //         $(this).trigger('isVisible');
+    //     });
+
+    // 
+    if($('#notify').is(':visible')){
+        x=$('#notify input').val()
+        var audio = new Audio("{{asset('storage/sound/swiftly.mp3')}}"); 
+        audio.play(); 
+        new Notification(`Succesfully registered the company!`,{
+            body:`Company name: ${x}`,
+        });
+    }
     // Server side rendering using datatables!
     $(document).ready(function() {
         $.noConflict();
@@ -154,9 +179,9 @@
             error: function(error) {
                 $('.alert-danger .list-group').empty()
                 $('.alert-danger').show();
-                temp_err=error['responseJSON']['errors']
-                for(const err in temp_err){
-                    $('#errors').append('<li class="list-group-item">'+temp_err[err][0]+'</li>')
+                temp_err = error['responseJSON']['errors']
+                for (const err in temp_err) {
+                    $('#errors').append('<li class="list-group-item">' + temp_err[err][0] + '</li>')
                     // console.log(temp_err[err][0])
                 }
             }

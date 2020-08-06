@@ -8,7 +8,9 @@ use Mail;
 use DB;
 use Yajra\DataTables\DataTables;
 use App\Mail\OnBoardMail;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 class CompanyController extends Controller
 {
     /**
@@ -34,6 +36,7 @@ class CompanyController extends Controller
             ->rawColumns(['action','comp_logo'])
             ->make(true);
         }
+        // dd(User::find(Auth::id(),['notification_status'])->notification_status);
         return view('company.index');
     }
 
@@ -56,9 +59,8 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-      
-            $request->validate([
+        return redirect(route('company.index'));
+        $request->validate([
             'name'=>'required|max:255',
             'email'=>'nullable|sometimes|email:rfc,dns',
             // 'logo'=> 'nullable|sometimes|image|mimes:jpeg,png,jpg|max:2048|dimensions:max_width=100,max_height=100'
@@ -79,6 +81,10 @@ class CompanyController extends Controller
                 $company->save();
             }
             $request->session()->flash('registered', 'Succesfully Registered The Company');
+            if(User::find(Auth::id(),['notification_status'])->notification_status=="1"){
+                $request->session()->flash('notify', $company->name);
+            }
+
             $name=$request->name;
             $details = [
                 'company_name'=>$name,
@@ -103,6 +109,7 @@ class CompanyController extends Controller
     public function show(Request $request,$id)
     {
         //
+
         return response()->json(Company::get($id));
 
     }
