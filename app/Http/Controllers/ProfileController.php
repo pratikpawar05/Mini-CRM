@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 class ProfileController extends Controller
 {
     /**
@@ -56,6 +57,7 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete($user_pic);
             }
             $user->profile_pic_url='storage/user/'.$image_name;
+            $user->updated_at =Carbon::now()->toDateTimeString();
             $user->save();
             return response()->json(['success'=>asset($user->profile_pic_url)]);
         }
@@ -104,6 +106,7 @@ class ProfileController extends Controller
         if ($request->password != null) {
             $user->password = bcrypt($request->password);
         }
+        $user->updated_at =Carbon::now()->toDateTimeString();
         $user->save();
 
         return response()->json('Succesfully Submitted the data!');

@@ -1,7 +1,7 @@
 @extends('layouts/app')
 @section('add')
 <div class="d-flex justify-content-end mb-2">
-    <a href="{{ route('company.create') }}" class="btn btn-success">Add Company</a>
+    <a href="{{ route('company.create') }}" class="btn btn-success btn-md text-dark label">Add Company</a>
 </div>
 @endsection
 @section('content')
@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="card card-default">
-    <div class="card-header bg-info">
+    <div class="card-header bg-success text-dark ">
         Company Record
     </div>
     <div class="card-body">
@@ -76,6 +76,9 @@
         <!-- Update Modal Ends-->
     </div>
 </div>
+@endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 @endsection
 @section('scripts')
 

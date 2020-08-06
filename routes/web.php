@@ -26,10 +26,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     // Profile Routes
-    // Route::Resource('/profile','ProfileController',['only' => [
-    //     'create'
-    // ]]);
-    
     Route::get('/profile/index/{id}','ProfileController@index')->name('profile.index');
     Route::post('/profile/update/{id}','ProfileController@update')->name('profile.update');
     Route::post('/profile/store/{id}','ProfileController@store')->name('profile.store');

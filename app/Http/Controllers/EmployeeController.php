@@ -6,6 +6,7 @@ use App\Employee;
 use App\Company;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
 class EmployeeController extends Controller
 {
     /**
@@ -112,6 +113,7 @@ class EmployeeController extends Controller
         $emp->company_id=$request->company;
         $emp->email=$request->email;
         $emp->phone=$request->phone;
+        $emp->updated_at =Carbon::now()->toDateTimeString();
         $emp->save();
         // return response()->json($request->header());
         return response()->json($request->first_name);

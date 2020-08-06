@@ -1,7 +1,7 @@
 @extends('layouts/app')
 @section('content')
 <div class="card card-default">
-    <div class="card-header label bg-success">
+    <div class="card-header label bg-success text-light">
         Add Employee
     </div>
     <div class="card-body">
@@ -50,4 +50,7 @@
         </form>
     </div>
 </div>
+@endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 @endsection

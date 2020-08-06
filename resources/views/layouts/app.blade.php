@@ -13,7 +13,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @yield('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <!-- jQuery library -->
@@ -95,6 +97,9 @@
                 <div class="row">
                     <div class="col-md-2">
                         <ul class="list-group">
+                        <li class="list-group-item">
+                                <a href="{{ route('home') }}">Home</a>
+                            </li>
                             <li class="list-group-item">
                                 <a href="{{ route('company.index') }}">Companies</a>
                             </li>

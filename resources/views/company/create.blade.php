@@ -37,7 +37,7 @@
                 <input type="file" name="logo" id="logo" class="form-control" accept="image/*">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Add Company</button>
+                <button type="submit" class="btn btn-success btn-lg text-dark">Create</button>
             </div>
         </form>
     </div>

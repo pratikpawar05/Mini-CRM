@@ -8,6 +8,7 @@ use Mail;
 use DB;
 use Yajra\DataTables\DataTables;
 use App\Mail\OnBoardMail;
+use Carbon\Carbon;
 class CompanyController extends Controller
 {
     /**
@@ -89,6 +90,7 @@ class CompanyController extends Controller
             //     $message->cc('icanpratikpawar@gmail.com');
             //     $message->subject('Testing Mail');
             // });
+        
         return redirect(route('company.index'));
     }
 
@@ -137,12 +139,14 @@ class CompanyController extends Controller
             $company->email = $request->email;
             $company->logo = explode('public/',$request->file('logo')->store('public/company'))[1];
             $company->website_url = $request->website_url;
+            $company->updated_at =Carbon::now()->toDateTimeString();
             $company->save();
         }
         else{
             $company->name = $request->name;
             $company->email = $request->email;
             $company->website_url = $request->website_url;
+            $company->updated_at =Carbon::now()->toDateTimeString();
             $company->save();
         }
         return 'Succesfully updated the company data';

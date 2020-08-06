@@ -1,7 +1,7 @@
 @extends('layouts/app')
 @section('add')
 <div class="d-flex justify-content-end mb-2">
-    <a href="{{ route('employee.create') }}" class="btn btn-primary">Add Employee</a>
+    <a href="{{ route('employee.create') }}" class="btn btn-success btn-md text-dark">Add Employee</a>
 </div>
 @endsection
 @section('content')
@@ -22,7 +22,7 @@
 </div>
 
 <div class="card card-default">
-    <div class="card-header bg-success">
+    <div class="card-header bg-success text-dark">
         Employee Record
     </div>
     <div class="card-body">
