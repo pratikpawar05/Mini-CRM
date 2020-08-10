@@ -46,12 +46,67 @@
         },
       });
     });
+    // Update The created annotation on a particular image
     anno.on('updateAnnotation', function(annotation, previous) {
-      //
       console.log('update annotation');
       console.log(annotation);
+      annotate = {
+        "@context": annotation["@context"],
+        "id": annotation["id"],
+        "type": annotation["type"],
+        "body": annotation["body"],
+        "target": {
+          "selector": [annotation["target"]["selector"]]
+        },
+      };
+
+      $.ajax({
+        url: `/annotation/update/${annotation["id"]}`,
+        type: 'POST',
+        headers: {
+          'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        data: annotate,
+        success: function(obj) {
+          console.log('success', obj)
+        },
+        error: function(obj) {
+          console.log(obj)
+        },
+      });
+    });
+
+    // Delete The created annotation on a particular image
+    anno.on('deleteAnnotation', function(annotation) {
+      console.log('delete annotation');
+      console.log(annotation);
+      annotate = {
+        "@context": annotation["@context"],
+        "id": annotation["id"],
+        "type": annotation["type"],
+        "body": annotation["body"],
+        "target": {
+          "selector": [annotation["target"]["selector"]]
+        },
+      };
+      $.ajax({
+        url: `/annotation/delete/${annotation["id"]}`,
+        type: 'POST',
+        headers: {
+          'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        data: annotate,
+        success: function(obj) {
+          console.log('delete success', obj)
+        },
+        error: function(obj) {
+          console.log(obj)
+        },
+      });
 
     });
+
+    // On file selection show it in img tag!
     $("#upload_image").change(function() {
       if (this.files && this.files[0]) {
         var reader = new FileReader();

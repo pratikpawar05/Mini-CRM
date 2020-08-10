@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\Empty_;
 Route::get('/', function () {
     return redirect('/login');
 });
+
 // Configuring auth routes
 Auth::routes();
 
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
     //Annotation Controller Routes
     Route::get('/annotation', 'AnnotationController@index')->name('annotation.index');
     Route::post('/annotation', 'AnnotationController@create')->name('annotation.create');
+    Route::post('/annotation/update/{id?}', 'AnnotationController@update')->name('annotation.update');
+    Route::post('/annotation/delete/{id?}', 'AnnotationController@delete')->name('annotation.delete');
 
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
