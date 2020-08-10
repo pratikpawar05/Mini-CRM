@@ -9,21 +9,14 @@ use App\Employee;
 use App\Mail\OnBoardMail;
 use PhpParser\Node\Expr\Empty_;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+//Basic Url to get into system
 Route::get('/', function () {
     return redirect('/login');
 });
+// Configuring auth routes
 Auth::routes();
+
+// Verifying authencity of users based on auth middleware
 Route::group(['middleware' => ['auth']], function () {
     // Profile Routes
     Route::get('/profile/index/{id}','ProfileController@index')->name('profile.index');
@@ -49,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Annotation Controller Routes
     Route::get('/annotation', 'AnnotationController@index')->name('annotation.index');
-
+    Route::post('/annotation', 'AnnotationController@create')->name('annotation.create');
 
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
