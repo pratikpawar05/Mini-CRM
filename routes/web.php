@@ -47,6 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
     //Home Controller Routes
     Route::get('/home', 'HomeController@index')->name('home');
 
+    //Annotation Controller Routes
+    Route::get('/annotation', 'AnnotationController@index')->name('annotation.index');
+
+
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
         $details = [

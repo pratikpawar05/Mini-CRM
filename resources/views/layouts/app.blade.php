@@ -106,6 +106,9 @@
                             <li class="list-group-item">
                                 <a href="{{ route('employee.index') }}">Employees</a>
                             </li>
+                            <li class="list-group-item">
+                                <a href="{{ route('annotation.index') }}">Annotation</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-10">
@@ -120,6 +123,7 @@
             @endauth
         </main>
     </div>
+    @yield('check')
 </body>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 @yield('scripts')

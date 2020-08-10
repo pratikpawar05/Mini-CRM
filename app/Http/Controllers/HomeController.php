@@ -36,6 +36,7 @@ class HomeController extends Controller
         $employee=Employee::where('created_at','like',$yesterday_date.'%')->get();
         $compa=DB::select('SELECT CAST(created_at AS DATE) as created_at,count(*) as count FROM companies GROUP BY CAST(created_at AS DATE)');
         $empa=DB::select('SELECT CAST(created_at AS DATE) as created_at,count(*) as count FROM employees GROUP BY CAST(created_at AS DATE)');
+
         //Graph data preparation// 
         foreach ($compa as $val)
         {
