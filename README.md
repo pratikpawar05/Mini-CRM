@@ -35,4 +35,5 @@
 - [✅] Admin should be able to edit their profile (Picture, Name, change password)
 - [✅] Send Notificatoin (In App) to Administrator everytime a company or employee is created
 - [✅] Settings for Administrator to enable or disable notifications (Email or In App)
-- [✅] Update about how to use the application
+- [✅] Adding Image Annotation Functionality.
+- [✅] Update about how to use the application.
