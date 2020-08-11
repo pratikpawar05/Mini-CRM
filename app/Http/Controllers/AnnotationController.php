@@ -31,9 +31,10 @@ class AnnotationController extends Controller
         $id_col=array_column($array_data,"id");
         $check=array_search($request->all()["id"],$id_col);
         if($check!==false){
-            $array_data[$check] = $request->all();
-                file_put_contents(storage_path("app/public/annotations/annotations.w3c.json"),json_encode($array_data));
-                return response()->json('Succesful');
+            array_splice($array_data,(int)$check, 1);
+            array_push($array_data,$request->all());
+            file_put_contents(storage_path("app/public/annotations/annotations.w3c.json"),json_encode($array_data));
+            return response()->json('Succesful');
          }
          else{
             return response()->json('Un-succesful');
