@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/annotation', 'AnnotationController@create')->name('annotation.create');
     Route::post('/annotation/update/{id?}', 'AnnotationController@update')->name('annotation.update');
     Route::post('/annotation/delete/{id?}', 'AnnotationController@delete')->name('annotation.delete');
+    Route::get('/annotation/{id}', 'AnnotationController@getAnnotationData')->name('annotation.getAnnotationData');
 
     //Testing mail functionality!!
     Route::get('/company/testMail',function(){
