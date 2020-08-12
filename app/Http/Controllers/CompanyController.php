@@ -76,7 +76,7 @@ class CompanyController extends Controller
                 $company = new Company();
                 $company->name = $request->name;
                 $company->email = $request->email;
-                $company->logo = 'company/noimagefound.png';
+                $company->logo = 'storage/company/noimagefound.png';
                 $company->website_url = $request->website_url;
                 $company->save();
             }
